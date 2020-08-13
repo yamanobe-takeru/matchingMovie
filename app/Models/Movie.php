@@ -3,10 +3,13 @@
 namespace App\Models;
 
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Movie extends Model
 {
+
+
     /**
      *テーブル 1対1
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -14,6 +17,10 @@ class Movie extends Model
     public function genre()
     {
         return $this->hasOne(Genre::class, 'id', 'genre_id');
+    }
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
 
     /**

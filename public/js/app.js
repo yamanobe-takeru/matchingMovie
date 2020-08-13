@@ -1899,10 +1899,96 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MovieCard.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MovieCard.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MainCard.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MainCard.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "MainCard",
+  props: ['movie'],
+  methods: {
+    favoriteButton1: function favoriteButton1() {
+      var _this = this;
+
+      axios.patch('/api/v1/movies/sad/' + this.movie.id).then(function () {
+        _this.$emit('favoriteButton1', _this.movie.id);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    favoriteButton2: function favoriteButton2() {
+      var _this2 = this;
+
+      axios.patch('/api/v1/movies/funny/' + this.movie.id).then(function () {
+        _this2.$emit('favoriteButton2', _this2.movie.id);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    favoriteButton3: function favoriteButton3() {
+      var _this3 = this;
+
+      axios.patch('/api/v1/movies/scare/' + this.movie.id).then(function () {
+        _this3.$emit('favoriteButton3', _this3.movie.id);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    favoriteButton4: function favoriteButton4() {
+      var _this4 = this;
+
+      axios.patch('/api/v1/movies/moved/' + this.movie.id).then(function () {
+        _this4.$emit('favoriteButton4', _this4.movie.id);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MainDetailModal.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MainDetailModal.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1941,6 +2027,277 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "MainDetailModal",
+  data: function data() {
+    return {
+      movie: {},
+      title: '',
+      cast: '',
+      director: '',
+      time: '',
+      genre_id: '',
+      content: '',
+      genres: {},
+      id: '',
+      name: ''
+    };
+  },
+  created: function created() {
+    this.loadGenreData();
+  },
+  methods: {
+    open: function open(movie) {
+      this.movie = movie;
+      this.title = movie.attributes.title;
+      this.cast = movie.attributes.cast;
+      this.director = movie.attributes.director;
+      this.time = movie.attributes.time;
+      this.genre_id = movie.attributes.genre_id;
+      this.content = movie.attributes.content;
+      $('#mainDetailModal').modal('show');
+    },
+    close: function close() {
+      $('#mainDetailModal').modal('hide');
+    },
+    loadGenreData: function loadGenreData() {
+      var _this = this;
+
+      axios.get('api/v1/genres', {
+        params: {
+          search_genre: this.search_genre
+        }
+      }).then(function (response) {
+        _this.genres = response.data.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    updateData: function updateData() {
+      var _this2 = this;
+
+      axios.patch('/api/v1/movies/' + this.movie.id, {
+        'title': this.title,
+        'cast': this.cast,
+        'director': this.director,
+        'time': this.time,
+        'genre_id': this.genre_id,
+        'content': this.content
+      }).then(function (response) {
+        _this2.$emit('movie-has-updated', response.data.data);
+
+        _this2.close();
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MainList.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MainList.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _MainCard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MainCard */ "./resources/js/components/MainCard.vue");
+/* harmony import */ var _MainDetailModal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MainDetailModal */ "./resources/js/components/MainDetailModal.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "MainList",
+  components: {
+    MainDetailModal: _MainDetailModal__WEBPACK_IMPORTED_MODULE_1__["default"],
+    MainCard: _MainCard__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: ['movies'],
+  methods: {
+    openModal: function openModal($event) {
+      this.$refs.mainDetailModal.open($event);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MainPage.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MainPage.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _MainList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MainList */ "./resources/js/components/MainList.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "MainPage",
+  components: {
+    MainList: _MainList__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      movies: [],
+      genre_id: '',
+      search_title: '',
+      search_impression: '',
+      search_genre: '',
+      genres: [],
+      users: [],
+      errors: []
+    };
+  },
+  created: function created() {
+    this.loadData();
+    this.loadGenreData();
+  },
+  methods: {
+    loadData: function loadData() {
+      var _this = this;
+
+      axios.get('api/v1/movies', {
+        params: {
+          search_title: this.search_title,
+          search_impression: this.search_impression,
+          search_genre: this.search_genre
+        }
+      }).then(function (response) {
+        _this.movies = response.data.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    loadGenreData: function loadGenreData() {
+      var _this2 = this;
+
+      axios.get('api/v1/genres', {
+        params: {
+          search_genre: this.search_genre
+        }
+      }).then(function (response) {
+        _this2.genres = response.data.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    countUpImpression: function countUpImpression($event) {
+      var index = this.movies.findIndex(function (movie) {
+        console.log(movie.id);
+        return movie.id === $event.id;
+      });
+      console.log(index);
+
+      if (index != -1) {
+        this.movies.splice(index, 1, $event);
+      }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MovieCard.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MovieCard.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "MovieCard",
   props: ['movie'],
@@ -1950,42 +2307,6 @@ __webpack_require__.r(__webpack_exports__);
 
       axios["delete"]('/api/v1/movies/' + this.movie.id).then(function () {
         _this.$emit('posthoge', _this.movie.id);
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    },
-    favoriteButton1: function favoriteButton1() {
-      var _this2 = this;
-
-      axios.patch('/api/v1/movies/sad/' + this.movie.id).then(function () {
-        _this2.$emit('favoriteButton1', _this2.movie.id);
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    },
-    favoriteButton2: function favoriteButton2() {
-      var _this3 = this;
-
-      axios.patch('/api/v1/movies/funny/' + this.movie.id).then(function () {
-        _this3.$emit('favoriteButton2', _this3.movie.id);
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    },
-    favoriteButton3: function favoriteButton3() {
-      var _this4 = this;
-
-      axios.patch('/api/v1/movies/scare/' + this.movie.id).then(function () {
-        _this4.$emit('favoriteButton3', _this4.movie.id);
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    },
-    favoriteButton4: function favoriteButton4() {
-      var _this5 = this;
-
-      axios.patch('/api/v1/movies/moved/' + this.movie.id).then(function () {
-        _this5.$emit('favoriteButton4', _this5.movie.id);
       })["catch"](function (error) {
         console.log(error);
       });
@@ -2042,6 +2363,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "MovieDetailModal",
   data: function data() {
@@ -2058,6 +2383,9 @@ __webpack_require__.r(__webpack_exports__);
       name: ''
     };
   },
+  created: function created() {
+    this.loadGenreData();
+  },
   methods: {
     open: function open(movie) {
       this.movie = movie;
@@ -2067,15 +2395,29 @@ __webpack_require__.r(__webpack_exports__);
       this.time = movie.attributes.time;
       this.genre_id = movie.attributes.genre_id;
       this.content = movie.attributes.content;
-      console.log(111);
       $('#movieDetailModal').modal('show');
-      console.log(222);
     },
     close: function close() {
       $('#movieDetailModal').modal('hide');
     },
-    updateData: function updateData() {
+    loadGenreData: function loadGenreData() {
       var _this = this;
+
+      console.log(this.search_genre);
+      console.log('ああああああ');
+      axios.get('api/v1/genres' // , {
+      // params: {
+      //     search_genre: this.search_genre
+      // }
+      // }
+      ).then(function (response) {
+        _this.genres = response.data.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    updateData: function updateData() {
+      var _this2 = this;
 
       axios.patch('/api/v1/movies/' + this.movie.id, {
         'title': this.title,
@@ -2085,9 +2427,9 @@ __webpack_require__.r(__webpack_exports__);
         'genre_id': this.genre_id,
         'content': this.content
       }).then(function (response) {
-        _this.$emit('movie-has-updated', response.data.data);
+        _this2.$emit('movie-has-updated', response.data.data);
 
-        _this.close();
+        _this2.close();
       })["catch"](function (error) {
         console.log(error);
       });
@@ -2108,9 +2450,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _MovieDetailModal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MovieDetailModal */ "./resources/js/components/MovieDetailModal.vue");
 /* harmony import */ var _MovieCard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MovieCard */ "./resources/js/components/MovieCard.vue");
-//
-//
-//
 //
 //
 //
@@ -2236,13 +2575,8 @@ __webpack_require__.r(__webpack_exports__);
       search_title: '',
       search_impression: '',
       search_genre: '',
-      sad: '',
-      funny: '',
-      scare: '',
-      moved: '',
       genres: [],
-      id: '',
-      name: '',
+      users: [],
       errors: []
     };
   },
@@ -2308,54 +2642,6 @@ __webpack_require__.r(__webpack_exports__);
 
       if (index !== -1) {
         this.movies.splice(index, 1);
-      }
-    },
-    countUpFavorite1: function countUpFavorite1($event) {
-      //console.log('ああああ');
-      //console.log($event);
-      var index = this.movies.findIndex(function (movie) {
-        //console.log(movie.id);
-        return movie.id === $event.id;
-      }); //console.log(index);
-
-      if (index != -1) {
-        this.movies.splice(index, 1, $event);
-      }
-    },
-    countUpFavorite2: function countUpFavorite2($event) {
-      //console.log('ああああ');
-      //console.log($event);
-      var index = this.movies.findIndex(function (movie) {
-        //console.log(movie.id);
-        return movie.id === $event.id;
-      }); //console.log(index);
-
-      if (index != -1) {
-        this.movies.splice(index, 1, $event);
-      }
-    },
-    countUpFavorite3: function countUpFavorite3($event) {
-      //console.log('ああああ');
-      //console.log($event);
-      var index = this.movies.findIndex(function (movie) {
-        //console.log(movie.id);
-        return movie.id === $event.id;
-      }); //console.log(index);
-
-      if (index != -1) {
-        this.movies.splice(index, 1, $event);
-      }
-    },
-    countUpFavorite4: function countUpFavorite4($event) {
-      //console.log('ああああ');
-      //console.log($event);
-      var index = this.movies.findIndex(function (movie) {
-        //console.log(movie.id);
-        return movie.id === $event.id;
-      }); //console.log(index);
-
-      if (index != -1) {
-        this.movies.splice(index, 1, $event);
       }
     },
     updateData: function updateData($event) {
@@ -37949,6 +38235,690 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MainCard.vue?vue&type=template&id=9343ad58&scoped=true&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MainCard.vue?vue&type=template&id=9343ad58&scoped=true& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "card-body" }, [
+        _c(
+          "p",
+          {
+            staticClass: "card-text",
+            on: {
+              click: function($event) {
+                return _vm.$emit("edit-button-has-clicked", _vm.movie)
+              }
+            }
+          },
+          [_vm._v(_vm._s(_vm.movie.attributes.title))]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "justify-content-between" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-outline-primary",
+              attrs: { type: "button" },
+              on: { click: _vm.favoriteButton1 }
+            },
+            [
+              _vm._v(
+                "\n                    悲しい|" +
+                  _vm._s(_vm.movie.attributes.sad) +
+                  " "
+              ),
+              _c("span", { staticClass: "badge badge-light" }),
+              _vm._v(" "),
+              _c("span", { staticClass: "sr-only" }, [
+                _vm._v("unread messages")
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-outline-warning",
+              attrs: { type: "button" },
+              on: { click: _vm.favoriteButton2 }
+            },
+            [
+              _vm._v(
+                "\n                    面白い|" +
+                  _vm._s(_vm.movie.attributes.funny) +
+                  " "
+              ),
+              _c("span", { staticClass: "badge badge-light" }),
+              _vm._v(" "),
+              _c("span", { staticClass: "sr-only" }, [
+                _vm._v("unread messages")
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-outline-secondary",
+              attrs: { type: "button" },
+              on: { click: _vm.favoriteButton3 }
+            },
+            [
+              _vm._v(
+                "\n                    怖い|" +
+                  _vm._s(_vm.movie.attributes.scare) +
+                  " "
+              ),
+              _c("span", { staticClass: "badge badge-light" }),
+              _vm._v(" "),
+              _c("span", { staticClass: "sr-only" }, [
+                _vm._v("unread messages")
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-outline-success",
+              attrs: { type: "button" },
+              on: { click: _vm.favoriteButton4 }
+            },
+            [
+              _vm._v(
+                "\n                    感動|" +
+                  _vm._s(_vm.movie.attributes.moved) +
+                  " "
+              ),
+              _c("span", { staticClass: "badge badge-light" }),
+              _vm._v(" "),
+              _c("span", { staticClass: "sr-only" }, [
+                _vm._v("unread messages")
+              ])
+            ]
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MainDetailModal.vue?vue&type=template&id=5eb1b770&scoped=true&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MainDetailModal.vue?vue&type=template&id=5eb1b770&scoped=true& ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "modal",
+      attrs: { id: "mainDetailModal", tabindex: "-1", role: "dialog" }
+    },
+    [
+      _c("div", { staticClass: "modal-dialog" }, [
+        _c("div", { staticClass: "modal-content" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-body" }, [
+            _c("form", [
+              _c("div", { staticClass: "form-group" }, [
+                _c("p", [
+                  _vm._v(" タイトル："),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.title,
+                        expression: "title"
+                      }
+                    ],
+                    attrs: {
+                      type: "text",
+                      name: "title",
+                      placeholder: "タイトル",
+                      readonly: ""
+                    },
+                    domProps: { value: _vm.title },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.title = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(" 主演　　："),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.cast,
+                        expression: "cast"
+                      }
+                    ],
+                    attrs: {
+                      type: "text",
+                      name: "cast",
+                      placeholder: "主演",
+                      readonly: ""
+                    },
+                    domProps: { value: _vm.cast },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.cast = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(" 監督　　："),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.director,
+                        expression: "director"
+                      }
+                    ],
+                    attrs: {
+                      type: "text",
+                      name: "director",
+                      placeholder: "監督",
+                      readonly: ""
+                    },
+                    domProps: { value: _vm.director },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.director = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(" 上映時間："),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.time,
+                        expression: "time"
+                      }
+                    ],
+                    attrs: {
+                      type: "text",
+                      name: "time",
+                      placeholder: "上映時間",
+                      readonly: ""
+                    },
+                    domProps: { value: _vm.time },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.time = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v("ジャンル "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.genre_id,
+                          expression: "genre_id"
+                        }
+                      ],
+                      attrs: { name: "genre_id" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.genre_id = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { disabled: "", value: "" } }, [
+                        _vm._v("選択して下さい")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "" } }),
+                      _vm._v(" "),
+                      _vm._l(_vm.genres, function(genre) {
+                        return _c(
+                          "option",
+                          { key: genre.name, domProps: { value: genre.id } },
+                          [
+                            _vm._v(
+                              _vm._s(genre.attributes.name) +
+                                "\n                            "
+                            )
+                          ]
+                        )
+                      })
+                    ],
+                    2
+                  )
+                ]),
+                _vm._v(" "),
+                _c("p", [_vm._v(" あらすじ：")]),
+                _vm._v(" "),
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.content,
+                      expression: "content"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    id: "exampleFormControlTextarea1",
+                    rows: "3",
+                    readonly: ""
+                  },
+                  domProps: { value: _vm.content },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.content = $event.target.value
+                    }
+                  }
+                })
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _vm._m(1)
+        ])
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("映画詳細")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("閉じる")]
+      )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MainList.vue?vue&type=template&id=0710e7e2&scoped=true&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MainList.vue?vue&type=template&id=0710e7e2&scoped=true& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "row justify-content-center" }, [
+          _c(
+            "div",
+            { staticClass: "col-8" },
+            _vm._l(_vm.movies, function(movie) {
+              return _c(
+                "div",
+                [
+                  _c("main-card", {
+                    attrs: { movie: movie },
+                    on: {
+                      "edit-button-has-clicked": function($event) {
+                        return _vm.openModal($event)
+                      },
+                      favoriteButton1: function($event) {
+                        return _vm.$emit("favoriteButton1-count-up", $event)
+                      },
+                      favoriteButton2: function($event) {
+                        return _vm.$emit("favoriteButton2-count-up", $event)
+                      },
+                      favoriteButton3: function($event) {
+                        return _vm.$emit("favoriteButton3-count-up", $event)
+                      },
+                      favoriteButton4: function($event) {
+                        return _vm.$emit("favoriteButton4-count-up", $event)
+                      }
+                    }
+                  })
+                ],
+                1
+              )
+            }),
+            0
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("main-detail-modal", {
+        ref: "mainDetailModal",
+        on: {
+          "movie-has-updated": function($event) {
+            return _vm.$emit("movie-has-updated", $event)
+          }
+        }
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MainPage.vue?vue&type=template&id=2bd38d5a&scoped=true&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MainPage.vue?vue&type=template&id=2bd38d5a&scoped=true& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container-fluid" }, [
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        {
+          staticClass: "col-3 px-1 bg-dark position-fixed",
+          attrs: { id: "sticky-sidebar" }
+        },
+        [
+          _c("p", [
+            _vm._v("タイトル "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.search_title,
+                  expression: "search_title"
+                }
+              ],
+              attrs: { type: "text", name: "title", placeholder: "タイトル" },
+              domProps: { value: _vm.search_title },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.search_title = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v("感情　　 "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.search_impression,
+                    expression: "search_impression"
+                  }
+                ],
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.search_impression = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { disabled: "", value: "" } }, [
+                  _vm._v("感情を選択して下さい")
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "" } }),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "sad" } }, [_vm._v("悲しい")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "funny" } }, [_vm._v("面白い")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "scare" } }, [_vm._v("怖い")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "moved" } }, [_vm._v("感動")])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v("ジャンル "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.search_genre,
+                    expression: "search_genre"
+                  }
+                ],
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.search_genre = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { disabled: "", value: "" } }, [
+                  _vm._v("選択して下さい")
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "" } }),
+                _vm._v(" "),
+                _vm._l(_vm.genres, function(genre) {
+                  return _c(
+                    "option",
+                    { key: genre.name, domProps: { value: genre.id } },
+                    [
+                      _vm._v(
+                        _vm._s(genre.attributes.name) + "\n                "
+                      )
+                    ]
+                  )
+                })
+              ],
+              2
+            )
+          ]),
+          _vm._v(" "),
+          _c("form", [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                attrs: { type: "button" },
+                on: { click: _vm.loadData }
+              },
+              [_vm._v("検索")]
+            )
+          ]),
+          _vm._v(" "),
+          _vm._l(_vm.errors, function(error) {
+            return _c("div", { staticClass: "invalid-feedback d-block" }, [
+              _vm._v("\n                " + _vm._s(error) + "\n            ")
+            ])
+          })
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col offset-3", attrs: { id: "main" } },
+        [
+          _c("main-list", {
+            attrs: { movies: _vm.movies },
+            on: {
+              "favoriteButton1-count-up": function($event) {
+                return _vm.countUpImpression($event)
+              },
+              "favoriteButton2-count-up": function($event) {
+                return _vm.countUpImpression($event)
+              },
+              "favoriteButton3-count-up": function($event) {
+                return _vm.countUpImpression($event)
+              },
+              "favoriteButton4-count-up": function($event) {
+                return _vm.countUpImpression($event)
+              }
+            }
+          })
+        ],
+        1
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MovieCard.vue?vue&type=template&id=67719085&scoped=true&":
 /*!************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MovieCard.vue?vue&type=template&id=67719085&scoped=true& ***!
@@ -37983,7 +38953,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("詳細")]
+            [_vm._v("編集\n                ")]
           ),
           _vm._v(" "),
           _c(
@@ -37996,89 +38966,7 @@ var render = function() {
             [_vm._v("削除")]
           ),
           _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-primary",
-              attrs: { type: "button" },
-              on: { click: _vm.favoriteButton1 }
-            },
-            [
-              _vm._v(
-                "\n                    悲しい|" +
-                  _vm._s(_vm.movie.attributes.sad) +
-                  " "
-              ),
-              _c("span", { staticClass: "badge badge-light" }),
-              _vm._v(" "),
-              _c("span", { staticClass: "sr-only" }, [
-                _vm._v("unread messages")
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-primary",
-              attrs: { type: "button" },
-              on: { click: _vm.favoriteButton2 }
-            },
-            [
-              _vm._v(
-                "\n                    面白い|" +
-                  _vm._s(_vm.movie.attributes.funny) +
-                  " "
-              ),
-              _c("span", { staticClass: "badge badge-light" }),
-              _vm._v(" "),
-              _c("span", { staticClass: "sr-only" }, [
-                _vm._v("unread messages")
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-primary",
-              attrs: { type: "button" },
-              on: { click: _vm.favoriteButton3 }
-            },
-            [
-              _vm._v(
-                "\n                    怖い|" +
-                  _vm._s(_vm.movie.attributes.scare) +
-                  " "
-              ),
-              _c("span", { staticClass: "badge badge-light" }),
-              _vm._v(" "),
-              _c("span", { staticClass: "sr-only" }, [
-                _vm._v("unread messages")
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-primary",
-              attrs: { type: "button" },
-              on: { click: _vm.favoriteButton4 }
-            },
-            [
-              _vm._v(
-                "\n                    感動|" +
-                  _vm._s(_vm.movie.attributes.moved) +
-                  " "
-              ),
-              _c("span", { staticClass: "badge badge-light" }),
-              _vm._v(" "),
-              _c("span", { staticClass: "sr-only" }, [
-                _vm._v("unread messages")
-              ])
-            ]
-          )
+          _c("span", { staticClass: "sr-only" }, [_vm._v("unread messages")])
         ])
       ])
     ])
@@ -38120,126 +39008,169 @@ var render = function() {
           _c("div", { staticClass: "modal-body" }, [
             _c("form", [
               _c("div", { staticClass: "form-group" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.title,
-                      expression: "title"
-                    }
-                  ],
-                  attrs: {
-                    type: "text",
-                    name: "title",
-                    placeholder: "タイトル"
-                  },
-                  domProps: { value: _vm.title },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+                _c("p", [
+                  _vm._v(" タイトル："),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.title,
+                        expression: "title"
                       }
-                      _vm.title = $event.target.value
+                    ],
+                    attrs: {
+                      type: "text",
+                      name: "title",
+                      placeholder: "タイトル"
+                    },
+                    domProps: { value: _vm.title },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.title = $event.target.value
+                      }
                     }
-                  }
-                }),
+                  })
+                ]),
                 _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.cast,
-                      expression: "cast"
-                    }
-                  ],
-                  attrs: { type: "text", name: "cast", placeholder: "主演" },
-                  domProps: { value: _vm.cast },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+                _c("p", [
+                  _vm._v(" 主演　　："),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.cast,
+                        expression: "cast"
                       }
-                      _vm.cast = $event.target.value
+                    ],
+                    attrs: { type: "text", name: "cast", placeholder: "主演" },
+                    domProps: { value: _vm.cast },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.cast = $event.target.value
+                      }
                     }
-                  }
-                }),
+                  })
+                ]),
                 _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.director,
-                      expression: "director"
-                    }
-                  ],
-                  attrs: {
-                    type: "text",
-                    name: "director",
-                    placeholder: "監督"
-                  },
-                  domProps: { value: _vm.director },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+                _c("p", [
+                  _vm._v(" 監督　　："),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.director,
+                        expression: "director"
                       }
-                      _vm.director = $event.target.value
+                    ],
+                    attrs: {
+                      type: "text",
+                      name: "director",
+                      placeholder: "監督"
+                    },
+                    domProps: { value: _vm.director },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.director = $event.target.value
+                      }
                     }
-                  }
-                }),
+                  })
+                ]),
                 _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.time,
-                      expression: "time"
-                    }
-                  ],
-                  attrs: {
-                    type: "text",
-                    name: "time",
-                    placeholder: "上映時間"
-                  },
-                  domProps: { value: _vm.time },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+                _c("p", [
+                  _vm._v(" 上映時間："),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.time,
+                        expression: "time"
                       }
-                      _vm.time = $event.target.value
+                    ],
+                    attrs: {
+                      type: "text",
+                      name: "time",
+                      placeholder: "上映時間"
+                    },
+                    domProps: { value: _vm.time },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.time = $event.target.value
+                      }
                     }
-                  }
-                }),
+                  })
+                ]),
                 _vm._v(" "),
-                _c("input", {
-                  directives: [
+                _c("p", [
+                  _vm._v("ジャンル "),
+                  _c(
+                    "select",
                     {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.genre_id,
-                      expression: "genre_id"
-                    }
-                  ],
-                  attrs: {
-                    type: "text",
-                    name: "genre_id",
-                    placeholder: "ジャンル"
-                  },
-                  domProps: { value: _vm.genre_id },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.genre_id,
+                          expression: "genre_id"
+                        }
+                      ],
+                      attrs: { name: "genre_id" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.genre_id = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
                       }
-                      _vm.genre_id = $event.target.value
-                    }
-                  }
-                }),
+                    },
+                    [
+                      _c("option", { attrs: { disabled: "", value: "" } }, [
+                        _vm._v("選択して下さい")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "" } }),
+                      _vm._v(" "),
+                      _vm._l(_vm.genres, function(genre) {
+                        return _c(
+                          "option",
+                          { key: genre.name, domProps: { value: genre.id } },
+                          [
+                            _vm._v(
+                              _vm._s(genre.attributes.name) +
+                                "\n                            "
+                            )
+                          ]
+                        )
+                      })
+                    ],
+                    2
+                  )
+                ]),
+                _vm._v(" "),
+                _c("p", [_vm._v(" あらすじ：")]),
                 _vm._v(" "),
                 _c("textarea", {
                   directives: [
@@ -38355,18 +39286,6 @@ var render = function() {
                       },
                       "edit-button-has-clicked": function($event) {
                         return _vm.openModal($event)
-                      },
-                      favoriteButton1: function($event) {
-                        return _vm.$emit("favoriteButton1-count-up", $event)
-                      },
-                      favoriteButton2: function($event) {
-                        return _vm.$emit("favoriteButton2-count-up", $event)
-                      },
-                      favoriteButton3: function($event) {
-                        return _vm.$emit("favoriteButton3-count-up", $event)
-                      },
-                      favoriteButton4: function($event) {
-                        return _vm.$emit("favoriteButton4-count-up", $event)
                       }
                     }
                   })
@@ -38413,353 +39332,341 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("div", { staticClass: "container" }, [
-        _c("div", { staticClass: "row justify-content-center" }, [
-          _c(
-            "div",
-            { staticClass: "col-8 mb-2" },
-            [
-              _c("form", [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.title,
-                      expression: "title"
-                    }
-                  ],
-                  attrs: {
-                    type: "text",
-                    name: "title",
-                    placeholder: "タイトル"
-                  },
-                  domProps: { value: _vm.title },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.title = $event.target.value
-                    }
+  return _c("div", { staticClass: "container-fluid" }, [
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        {
+          staticClass: "col-3 px-1 bg-dark position-fixed",
+          attrs: { id: "sticky-sidebar" }
+        },
+        [
+          _c("form", [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.title,
+                  expression: "title"
+                }
+              ],
+              attrs: { type: "text", name: "title", placeholder: "タイトル" },
+              domProps: { value: _vm.title },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
                   }
-                }),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.cast,
-                      expression: "cast"
-                    }
-                  ],
-                  attrs: {
-                    type: "text",
-                    name: "cast",
-                    placeholder: "キャスト"
-                  },
-                  domProps: { value: _vm.cast },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.cast = $event.target.value
-                    }
+                  _vm.title = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.cast,
+                  expression: "cast"
+                }
+              ],
+              attrs: { type: "text", name: "cast", placeholder: "キャスト" },
+              domProps: { value: _vm.cast },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
                   }
-                }),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.director,
-                      expression: "director"
-                    }
-                  ],
-                  attrs: {
-                    type: "text",
-                    name: "director",
-                    placeholder: "監督"
-                  },
-                  domProps: { value: _vm.director },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.director = $event.target.value
-                    }
+                  _vm.cast = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.director,
+                  expression: "director"
+                }
+              ],
+              attrs: { type: "text", name: "director", placeholder: "監督" },
+              domProps: { value: _vm.director },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
                   }
-                }),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.time,
-                      expression: "time"
-                    }
-                  ],
-                  attrs: { type: "text", name: "time", placeholder: "分" },
-                  domProps: { value: _vm.time },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.time = $event.target.value
-                    }
+                  _vm.director = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.time,
+                  expression: "time"
+                }
+              ],
+              attrs: { type: "text", name: "time", placeholder: "分" },
+              domProps: { value: _vm.time },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
                   }
-                }),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.content,
-                      expression: "content"
-                    }
-                  ],
-                  attrs: {
-                    type: "text",
-                    name: "content",
-                    placeholder: "あらすじ"
-                  },
-                  domProps: { value: _vm.content },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.content = $event.target.value
-                    }
+                  _vm.time = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.content,
+                  expression: "content"
+                }
+              ],
+              attrs: { type: "text", name: "content", placeholder: "あらすじ" },
+              domProps: { value: _vm.content },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
                   }
-                }),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.genre_id,
-                      expression: "genre_id"
-                    }
-                  ],
-                  attrs: {
-                    type: "text",
-                    name: "genre_id",
-                    placeholder: "ジャンル"
-                  },
-                  domProps: { value: _vm.genre_id },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.genre_id = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "button",
+                  _vm.content = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
                   {
-                    staticClass: "btn btn-primary",
-                    attrs: { type: "button" },
-                    on: { click: _vm.createData }
-                  },
-                  [_vm._v("映画追加")]
-                )
-              ]),
-              _vm._v(" "),
-              _c("form", [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.search_title,
-                      expression: "search_title"
-                    }
-                  ],
-                  attrs: {
-                    type: "text",
-                    name: "title",
-                    placeholder: "タイトル"
-                  },
-                  domProps: { value: _vm.search_title },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.search_title = $event.target.value
-                    }
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.genre_id,
+                    expression: "genre_id"
                   }
-                }),
+                ],
+                attrs: { name: "genre_id" },
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.genre_id = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { disabled: "", value: "" } }, [
+                  _vm._v("ジャンル選択")
+                ]),
                 _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.search_impression,
-                        expression: "search_impression"
-                      }
-                    ],
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.search_impression = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      }
-                    }
-                  },
-                  [
-                    _c("option", { attrs: { disabled: "", value: "" } }, [
-                      _vm._v("感情を選択して下さい")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "" } }),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "sad" } }, [
-                      _vm._v("悲しい")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "funny" } }, [
-                      _vm._v("面白い")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "scare" } }, [
-                      _vm._v("怖い")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "moved" } }, [
-                      _vm._v("感動")
-                    ])
-                  ]
-                ),
+                _c("option", { attrs: { value: "" } }),
                 _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.search_genre,
-                        expression: "search_genre"
-                      }
-                    ],
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.search_genre = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      }
-                    }
-                  },
-                  [
-                    _c("option", { attrs: { disabled: "", value: "" } }, [
-                      _vm._v("選択して下さい")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "" } }),
-                    _vm._v(" "),
-                    _vm._l(_vm.genres, function(genre) {
-                      return _c(
-                        "option",
-                        { key: genre.name, domProps: { value: genre.id } },
-                        [
-                          _vm._v(
-                            _vm._s(genre.attributes.name) +
-                              "\n                        "
-                          )
-                        ]
+                _vm._l(_vm.genres, function(genre) {
+                  return _c(
+                    "option",
+                    { key: genre.name, domProps: { value: genre.id } },
+                    [
+                      _vm._v(
+                        _vm._s(genre.attributes.name) +
+                          "\n                        "
                       )
+                    ]
+                  )
+                })
+              ],
+              2
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                attrs: { type: "button" },
+                on: { click: _vm.createData }
+              },
+              [_vm._v("映画追加")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.search_title,
+                expression: "search_title"
+              }
+            ],
+            attrs: { type: "text", name: "title", placeholder: "タイトル" },
+            domProps: { value: _vm.search_title },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.search_title = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.search_impression,
+                  expression: "search_impression"
+                }
+              ],
+              attrs: { name: "genre_id" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
                     })
-                  ],
-                  2
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    attrs: { type: "button" },
-                    on: { click: _vm.loadData }
-                  },
-                  [_vm._v("検索")]
-                )
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.search_impression = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { disabled: "", value: "" } }, [
+                _vm._v("感情を選択して下さい")
               ]),
               _vm._v(" "),
-              _vm._l(_vm.errors, function(error) {
-                return _c("div", { staticClass: "invalid-feedback d-block" }, [
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(error) +
-                      "\n                "
-                  )
-                ])
+              _c("option", { attrs: { value: "" } }),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "sad" } }, [_vm._v("悲しい")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "funny" } }, [_vm._v("面白い")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "scare" } }, [_vm._v("怖い")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "moved" } }, [_vm._v("感動")])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.search_genre,
+                  expression: "search_genre"
+                }
+              ],
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.search_genre = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { disabled: "", value: "" } }, [
+                _vm._v("選択して下さい")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "" } }),
+              _vm._v(" "),
+              _vm._l(_vm.genres, function(genre) {
+                return _c(
+                  "option",
+                  { key: genre.name, domProps: { value: genre.id } },
+                  [
+                    _vm._v(
+                      _vm._s(genre.attributes.name) + "\n                    "
+                    )
+                  ]
+                )
               })
             ],
             2
-          )
-        ])
-      ]),
+          ),
+          _vm._v(" "),
+          _c("form", [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                attrs: { type: "button" },
+                on: { click: _vm.loadData }
+              },
+              [_vm._v("検索")]
+            )
+          ]),
+          _vm._v(" "),
+          _vm._l(_vm.errors, function(error) {
+            return _c("div", { staticClass: "invalid-feedback d-block" }, [
+              _vm._v(
+                "\n                    " + _vm._s(error) + "\n                "
+              )
+            ])
+          })
+        ],
+        2
+      ),
       _vm._v(" "),
-      _c("movie-list", {
-        attrs: { movies: _vm.movies },
-        on: {
-          "movie-has-deleted": function($event) {
-            return _vm.deleteData($event)
-          },
-          "movie-has-updated": function($event) {
-            return _vm.updateData($event)
-          },
-          "favoriteButton1-count-up": function($event) {
-            return _vm.countUpFavorite1($event)
-          },
-          "favoriteButton2-count-up": function($event) {
-            return _vm.countUpFavorite2($event)
-          },
-          "favoriteButton3-count-up": function($event) {
-            return _vm.countUpFavorite3($event)
-          },
-          "favoriteButton4-count-up": function($event) {
-            return _vm.countUpFavorite4($event)
-          }
-        }
-      })
-    ],
-    1
-  )
+      _c(
+        "div",
+        { staticClass: "col offset-3", attrs: { id: "main" } },
+        [
+          _c("movie-list", {
+            attrs: { movies: _vm.movies },
+            on: {
+              "movie-has-deleted": function($event) {
+                return _vm.deleteData($event)
+              },
+              "movie-has-updated": function($event) {
+                return _vm.updateData($event)
+              }
+            }
+          })
+        ],
+        1
+      )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -50957,6 +51864,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 //Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 Vue.component('movie-page', __webpack_require__(/*! ./components/MoviePage.vue */ "./resources/js/components/MoviePage.vue")["default"]);
+Vue.component('main-page', __webpack_require__(/*! ./components/MainPage.vue */ "./resources/js/components/MainPage.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -51011,6 +51919,282 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/components/MainCard.vue":
+/*!**********************************************!*\
+  !*** ./resources/js/components/MainCard.vue ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _MainCard_vue_vue_type_template_id_9343ad58_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MainCard.vue?vue&type=template&id=9343ad58&scoped=true& */ "./resources/js/components/MainCard.vue?vue&type=template&id=9343ad58&scoped=true&");
+/* harmony import */ var _MainCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MainCard.vue?vue&type=script&lang=js& */ "./resources/js/components/MainCard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _MainCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _MainCard_vue_vue_type_template_id_9343ad58_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _MainCard_vue_vue_type_template_id_9343ad58_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "9343ad58",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/MainCard.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/MainCard.vue?vue&type=script&lang=js&":
+/*!***********************************************************************!*\
+  !*** ./resources/js/components/MainCard.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MainCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./MainCard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MainCard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MainCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/MainCard.vue?vue&type=template&id=9343ad58&scoped=true&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/MainCard.vue?vue&type=template&id=9343ad58&scoped=true& ***!
+  \*****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MainCard_vue_vue_type_template_id_9343ad58_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./MainCard.vue?vue&type=template&id=9343ad58&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MainCard.vue?vue&type=template&id=9343ad58&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MainCard_vue_vue_type_template_id_9343ad58_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MainCard_vue_vue_type_template_id_9343ad58_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/MainDetailModal.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/MainDetailModal.vue ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _MainDetailModal_vue_vue_type_template_id_5eb1b770_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MainDetailModal.vue?vue&type=template&id=5eb1b770&scoped=true& */ "./resources/js/components/MainDetailModal.vue?vue&type=template&id=5eb1b770&scoped=true&");
+/* harmony import */ var _MainDetailModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MainDetailModal.vue?vue&type=script&lang=js& */ "./resources/js/components/MainDetailModal.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _MainDetailModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _MainDetailModal_vue_vue_type_template_id_5eb1b770_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _MainDetailModal_vue_vue_type_template_id_5eb1b770_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "5eb1b770",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/MainDetailModal.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/MainDetailModal.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/MainDetailModal.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MainDetailModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./MainDetailModal.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MainDetailModal.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MainDetailModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/MainDetailModal.vue?vue&type=template&id=5eb1b770&scoped=true&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/MainDetailModal.vue?vue&type=template&id=5eb1b770&scoped=true& ***!
+  \************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MainDetailModal_vue_vue_type_template_id_5eb1b770_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./MainDetailModal.vue?vue&type=template&id=5eb1b770&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MainDetailModal.vue?vue&type=template&id=5eb1b770&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MainDetailModal_vue_vue_type_template_id_5eb1b770_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MainDetailModal_vue_vue_type_template_id_5eb1b770_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/MainList.vue":
+/*!**********************************************!*\
+  !*** ./resources/js/components/MainList.vue ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _MainList_vue_vue_type_template_id_0710e7e2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MainList.vue?vue&type=template&id=0710e7e2&scoped=true& */ "./resources/js/components/MainList.vue?vue&type=template&id=0710e7e2&scoped=true&");
+/* harmony import */ var _MainList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MainList.vue?vue&type=script&lang=js& */ "./resources/js/components/MainList.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _MainList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _MainList_vue_vue_type_template_id_0710e7e2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _MainList_vue_vue_type_template_id_0710e7e2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "0710e7e2",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/MainList.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/MainList.vue?vue&type=script&lang=js&":
+/*!***********************************************************************!*\
+  !*** ./resources/js/components/MainList.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MainList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./MainList.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MainList.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MainList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/MainList.vue?vue&type=template&id=0710e7e2&scoped=true&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/MainList.vue?vue&type=template&id=0710e7e2&scoped=true& ***!
+  \*****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MainList_vue_vue_type_template_id_0710e7e2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./MainList.vue?vue&type=template&id=0710e7e2&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MainList.vue?vue&type=template&id=0710e7e2&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MainList_vue_vue_type_template_id_0710e7e2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MainList_vue_vue_type_template_id_0710e7e2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/MainPage.vue":
+/*!**********************************************!*\
+  !*** ./resources/js/components/MainPage.vue ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _MainPage_vue_vue_type_template_id_2bd38d5a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MainPage.vue?vue&type=template&id=2bd38d5a&scoped=true& */ "./resources/js/components/MainPage.vue?vue&type=template&id=2bd38d5a&scoped=true&");
+/* harmony import */ var _MainPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MainPage.vue?vue&type=script&lang=js& */ "./resources/js/components/MainPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _MainPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _MainPage_vue_vue_type_template_id_2bd38d5a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _MainPage_vue_vue_type_template_id_2bd38d5a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "2bd38d5a",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/MainPage.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/MainPage.vue?vue&type=script&lang=js&":
+/*!***********************************************************************!*\
+  !*** ./resources/js/components/MainPage.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MainPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./MainPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MainPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MainPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/MainPage.vue?vue&type=template&id=2bd38d5a&scoped=true&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/MainPage.vue?vue&type=template&id=2bd38d5a&scoped=true& ***!
+  \*****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MainPage_vue_vue_type_template_id_2bd38d5a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./MainPage.vue?vue&type=template&id=2bd38d5a&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MainPage.vue?vue&type=template&id=2bd38d5a&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MainPage_vue_vue_type_template_id_2bd38d5a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MainPage_vue_vue_type_template_id_2bd38d5a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 

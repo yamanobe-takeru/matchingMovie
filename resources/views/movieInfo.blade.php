@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <movie-page></movie-page>
+
+<main-page></main-page>
+
 @endsection

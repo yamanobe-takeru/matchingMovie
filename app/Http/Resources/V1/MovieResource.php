@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\V1;
 
-use App\Http\Resources\V1\UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class MovieResource extends JsonResource
@@ -15,8 +14,6 @@ class MovieResource extends JsonResource
      */
     public function toArray($request)
     {
-       // dd($request->user());
-        //return parent::toArray($request);
         return ['id' => $this->id,
             'attributes' => [
                 'title' => $this->title,
@@ -31,10 +28,11 @@ class MovieResource extends JsonResource
                 'funny' =>$this->funny,
                 'scare' =>$this->scare,
                 'moved' =>$this->moved,
+                'user_id' =>$this->user_id
 
             ],
             'relationships' => [
-                //'user' => new UserResource($this->user)
+                'user' => new UserResource($this->user),
                 'genre' => new GenreResource($this->genre),
             ],
             'links' => [

@@ -7,10 +7,7 @@
                         <movie-card :movie="movie"
                                     @posthoge="$emit('movie-has-deleted', $event)"
                                     @edit-button-has-clicked="openModal($event)"
-                                    @favoriteButton1="$emit('favoriteButton1-count-up', $event)"
-                                    @favoriteButton2="$emit('favoriteButton2-count-up', $event)"
-                                    @favoriteButton3="$emit('favoriteButton3-count-up', $event)"
-                                    @favoriteButton4="$emit('favoriteButton4-count-up', $event)">
+                                  >
                         </movie-card>
                     </div>
                 </div>

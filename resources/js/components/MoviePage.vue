@@ -1,56 +1,56 @@
 <template>
-    <div>
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-8 mb-2">
-                    <form>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-3 px-1 bg-dark position-fixed" id="sticky-sidebar">
+                <form>
                         <input type="text" name="title" placeholder="タイトル" v-model="title">
                         <input type="text" name="cast" placeholder="キャスト" v-model="cast">
                         <input type="text" name="director" placeholder="監督" v-model="director">
                         <input type="text" name="time" placeholder="分" v-model="time">
                         <input type="text" name="content" placeholder="あらすじ" v-model="content">
-                        <input type="text" name="genre_id" placeholder="ジャンル" v-model="genre_id">
-                        <button type="button" class="btn btn-primary" @click="createData">映画追加</button>
+<!--                        <input type="text" name="genre_id" placeholder="ジャンル" v-model="genre_id">-->
+                   <select name="genre_id" v-model="genre_id">
+                        <option disabled value="">ジャンル選択</option>
+                        <option value=""></option>
+                        <option v-for="genre in genres" :key="genre.name" :value="genre.id">{{
+                            genre.attributes.name
+                            }}
+                        </option>
+                    </select>
+                    <button type="button" class="btn btn-primary" @click="createData">映画追加</button>
                     </form>
-
-                    <form>
-                        <input type="text" name="title" placeholder="タイトル" v-model="search_title">
-                        <select v-model="search_impression">
-                            <option disabled value="">感情を選択して下さい</option>
-                            <option value=""></option>
-                            <option value="sad">悲しい</option>
-                            <option value="funny">面白い</option>
-                            <option value="scare">怖い</option>
-                            <option value="moved">感動</option>
-                        </select>
-
-                        <select v-model="search_genre">
-                            <option disabled value="">選択して下さい</option>
-                            <option value=""></option>
-                            <option v-for="genre in genres" :key="genre.name" :value="genre.id">{{ genre.attributes.name
-                                }}
-                            </option>
-                        </select>
-
-                        <button type="button" class="btn btn-primary" @click="loadData">検索</button>
-                    </form>
-
-
-                    <div class="invalid-feedback d-block" v-for="error in errors">
-                        {{error}}
-                    </div>
+                <input type="text" name="title" placeholder="タイトル" v-model="search_title">
+                <select name="genre_id" v-model="search_impression">
+                    <option disabled value="">感情を選択して下さい</option>
+                    <option value=""></option>
+                    <option value="sad">悲しい</option>
+                    <option value="funny">面白い</option>
+                    <option value="scare">怖い</option>
+                    <option value="moved">感動</option>
+                </select>
+                <select v-model="search_genre">
+                    <option disabled value="">選択して下さい</option>
+                    <option value=""></option>
+                    <option v-for="genre in genres" :key="genre.name" :value="genre.id">{{ genre.attributes.name
+                        }}
+                    </option>
+                </select>
+                <form>
+                    <button type="button" class="btn btn-primary" @click="loadData">検索</button>
+                </form>
+                <div class="invalid-feedback d-block" v-for="error in errors">
+                    {{error}}
                 </div>
             </div>
+            <div class="col offset-3" id="main">
+                <movie-list :movies="movies"
+                            @movie-has-deleted="deleteData($event)"
+                            @movie-has-updated="updateData($event)"
+                >
+                </movie-list>
+
+            </div>
         </div>
-        <movie-list :movies="movies"
-                    @movie-has-deleted="deleteData($event)"
-                    @movie-has-updated="updateData($event)"
-                    @favoriteButton1-count-up="countUpFavorite1($event)"
-                    @favoriteButton2-count-up="countUpFavorite2($event)"
-                    @favoriteButton3-count-up="countUpFavorite3($event)"
-                    @favoriteButton4-count-up="countUpFavorite4($event)"
-                    >
-        </movie-list>
     </div>
 
 </template>
@@ -74,13 +74,8 @@
                 search_title: '',
                 search_impression: '',
                 search_genre: '',
-                sad: '',
-                funny: '',
-                scare: '',
-                moved: '',
                 genres: [],
-                id: '',
-                name: '',
+                users: [],
                 errors: [],
             }
         },
@@ -116,6 +111,7 @@
                 })
                     .then((response) => {
                         this.genres = response.data.data;
+
                     })
                     .catch((error) => {
                         console.log(error);
@@ -152,62 +148,6 @@
                 if (index !== -1) {
                     this.movies.splice(index, 1);
                 }
-            },
-            countUpFavorite1: function ($event) {
-                //console.log('ああああ');
-
-                //console.log($event);
-                const index = this.movies.findIndex(function (movie) {
-                    //console.log(movie.id);
-                    return movie.id === $event.id;
-                });
-                //console.log(index);
-
-                if (index != -1) {
-                    this.movies.splice(index, 1, $event);
-                }
-            },
-            countUpFavorite2: function ($event) {
-                //console.log('ああああ');
-
-                //console.log($event);
-                const index = this.movies.findIndex(function (movie) {
-                    //console.log(movie.id);
-                    return movie.id === $event.id;
-                });
-                //console.log(index);
-
-                if (index != -1) {
-                    this.movies.splice(index, 1, $event);
-                }
-            }, countUpFavorite3: function ($event) {
-                //console.log('ああああ');
-
-                //console.log($event);
-                const index = this.movies.findIndex(function (movie) {
-                    //console.log(movie.id);
-                    return movie.id === $event.id;
-                });
-                //console.log(index);
-
-                if (index != -1) {
-                    this.movies.splice(index, 1, $event);
-                }
-            },
-            countUpFavorite4: function ($event) {
-                //console.log('ああああ');
-
-                //console.log($event);
-                const index = this.movies.findIndex(function (movie) {
-                    //console.log(movie.id);
-                    return movie.id === $event.id;
-                });
-                //console.log(index);
-
-                if (index != -1) {
-                    this.movies.splice(index, 1, $event);
-                }
-
             },
             updateData: function ($event) {
                 const index = this.movies.findIndex(function (movie) {

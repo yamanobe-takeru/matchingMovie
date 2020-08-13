@@ -17,10 +17,10 @@ class MovieController extends Controller
     public function index()
     {
 
-        $movie = Movie::filter()->with(['genre'])->get();
+        $movies = Movie::filter()->with(['genre'])->paginate(5);
 
-        return MovieResource::collection($movie);
-
+        return MovieResource::collection($movies);
+       // return view('movieInfo', ['movies' => $movies]);
     }
 
     /**
